@@ -10,7 +10,7 @@ namespace Tweaks55.HarmonyPatches {
 		[HarmonyPriority(int.MaxValue)]
 		[HarmonyPrefix]
 		static bool Prefix(ObstacleControllerBase obstactleController, Color? color) {
-			return !WallOutline.enabled;
+			return color.HasValue || !WallOutline.enabled;
 		}
 
 		static MethodBase TargetMethod() => Resolver.GetMethod("Chroma.Colorizer.ObstacleColorizerManager", "Colorize", assemblyName: "Chroma");
@@ -22,7 +22,7 @@ namespace Tweaks55.HarmonyPatches {
 		[HarmonyPriority(int.MaxValue)]
 		[HarmonyPrefix]
 		static bool Prefix(NoteControllerBase noteController, Color? color) {
-			return Config.Instance.bombColor == BombColor.defaultColor;
+			return color.HasValue || Config.Instance.bombColor == BombColor.defaultColor;
 		}
 
 		static MethodBase TargetMethod() => Resolver.GetMethod("Chroma.Colorizer.BombColorizerManager", "Colorize", assemblyName: "Chroma");
